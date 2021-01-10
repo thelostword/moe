@@ -1,0 +1,33 @@
+// 页面基础样式
+html {
+  font-size: var(--font-size-base);
+  color: var(--color-6);
+}
+a {
+  text-decoration: none;
+  color: var(--color-3);
+}
+ul,li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+div,ul,li,header,footer,section  {
+  box-sizing: border-box;
+}
+
+//滚动条样式
+// ::-webkit-scrollbar {
+// width:6px;
+// height: 6px;
+// background: transparent;
+// }
+
+// ::-webkit-scrollbar-track {
+//   background: transparent;
+// }
+
+// ::-webkit-scrollbar-thumb {
+//   border-radius:6px;
+//   background-color: $color-theme;
+// }

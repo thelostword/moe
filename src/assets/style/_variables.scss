@@ -1,0 +1,47 @@
+:root {
+  // font color
+  --color-theme: #f09199;
+  --color-bili-pink:#fb7299;
+  --color-bili-blue:#73c9e5;
+  --color-green:#14b27f;
+  --color-white:#fff;
+  --color-black:#000;
+  --color-3:#333;
+  --color-6:#666;
+  --color-9:#999;
+  --color-c:#ccc;
+  // background color
+  // 白色
+  --color-white-o1:rgba(255,255,255,0.1);
+  --color-white-o2:rgba(255,255,255,0.2);
+  --color-white-o3:rgba(255,255,255,0.3);
+  --color-white-o4:rgba(255,255,255,0.4);
+  --color-white-o5:rgba(255,255,255,0.5);
+  --color-white-o6:rgba(255,255,255,0.6);
+  --color-white-o7:rgba(255,255,255,0.7);
+  --color-white-o8:rgba(255,255,255,0.8);
+  --color-white-o9:rgba(255,255,255,0.9);
+  // 黑色
+  --color-black-o1:rgba(0,0,0,0.1);
+  --color-black-o2:rgba(0,0,0,0.2);
+  --color-black-o3:rgba(0,0,0,0.3);
+  --color-black-o4:rgba(0,0,0,0.4);
+  --color-black-o5:rgba(0,0,0,0.5);
+  --color-black-o6:rgba(0,0,0,0.6);
+  --color-black-o7:rgba(0,0,0,0.7);
+  --color-black-o8:rgba(0,0,0,0.8);
+  --color-black-o9:rgba(0,0,0,0.9);
+  //font-size
+  --font-size-base: 14px;
+  --font-size-sm: 12px;
+  --font-size-md: 16px;
+  --font-size-lg: 24px;
+  --font-size-xl:28px;
+  //z-index
+  --search-z-index: 10;
+  --header-z-index: 11;
+  --mask-z-index: 12;
+  //宽高
+  --header-height: 50px;
+  --footer-height: 100px;
+}
