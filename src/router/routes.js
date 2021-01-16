@@ -1,9 +1,9 @@
-import Index from '../views/Index.vue';
+import Home from '@/components/home/Index.vue';
 
 export default [
   {
     path: '/',
-    name: 'Index',
-    component: Index,
+    name: 'Home',
+    component: Home,
   },
 ];

@@ -16,7 +16,7 @@ div,ul,li,header,footer,section  {
   box-sizing: border-box;
 }
 
-//滚动条样式
+// // 滚动条样式
 // ::-webkit-scrollbar {
 // width:6px;
 // height: 6px;
@@ -29,5 +29,5 @@ div,ul,li,header,footer,section  {
 
 // ::-webkit-scrollbar-thumb {
 //   border-radius:6px;
-//   background-color: $color-theme;
+//   background-color: var(--color-theme);
 // }

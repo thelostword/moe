@@ -1,0 +1,22 @@
+.views {
+  position: relative;
+  margin-top: var(--header-height);
+  width: 100%;
+
+  // Small devices (landscape phones, 576px and up)
+  @media (min-width: 576px) {
+    width: 540px;
+  }
+  // Medium devices (tablets, 768px and up)
+  @media (min-width: 768px) {
+    width: 720px;
+  }
+  // Large devices (desktops, 992px and up)
+  @media (min-width: 992px) {
+    width: 960px;
+  }
+  // Extra large devices (large desktops, 1200px and up)
+  @media (min-width: 1200px) {
+    width: 1140px;
+  }
+}

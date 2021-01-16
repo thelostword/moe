@@ -1,6 +1,6 @@
 import axios from 'axios';
 import qs from 'qs';
-import { useStore } from 'vuex';
+import store from '../store';
 
 const store = useStore();
 

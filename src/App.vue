@@ -1,18 +1,25 @@
 <template>
-  <Index/>
+  <View/>
 </template>
 
 <script>
-import Index from './views/Index.vue';
+import View from './views/Index.vue';
 
 export default {
   components: {
-    Index,
+    View,
   },
 };
 </script>
 
 <style lang="scss">
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
 /* 文本单行溢出隐藏 */
 @mixin single-text {
   overflow: hidden;
