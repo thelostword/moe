@@ -3,7 +3,7 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import './assets/style/style.scss';
-import Notify from './components/layer/notify';
+import Notify from './components/Losting/notify';
 
 /* 路由发生变化修改页面title */
 router.beforeEach((to, from, next) => {
