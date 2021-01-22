@@ -21,7 +21,7 @@ function handleData(type, title, content) {
       return h(NotifyComponent, { NotifyList });
     },
   });
-  app.mount('#Notify');
+  app.mount('#_notify');
 }
 
 /* eslint-disable */

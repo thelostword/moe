@@ -1,18 +1,21 @@
 <template>
-  <section>
-    home
+  <div>
+
+    <NavigationMain/>
+    <NavigationSecond/>
     <button @click="clickMe">点我</button>
-    <Icon icon="success" size="30" color="#000"/>
-  </section>
+  </div>
 </template>
 
 <script>
 import { getCurrentInstance } from 'vue';
-import Icon from '@/components/Losting/Icon.vue';
+import NavigationMain from './Navigation/Main.vue';
+import NavigationSecond from './Navigation/Second.vue';
 
 export default {
   components: {
-    Icon,
+    NavigationMain,
+    NavigationSecond,
   },
   setup() {
     const { ctx } = getCurrentInstance();
@@ -27,4 +30,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.content {
+  margin-top: 50px;
+}
 </style>

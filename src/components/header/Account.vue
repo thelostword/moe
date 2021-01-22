@@ -1,8 +1,8 @@
 <template>
   <div class="account" ref="account">
     <div class="account-info" :class="showDropDown && 'active'" @click="toggleDropDown">
-      <div v-html="userAvatar('losting')"></div>
-      <span>{{ isLogin ? 'losting' : '游客' }}</span>
+      <div v-html="userAvatar(isLogin ? 'losting' : '未登录')"></div>
+      <span>{{ isLogin ? 'losting' : '未登录' }}</span>
     </div>
     <AccountDropDown v-show="showDropDown" @menu-click="toggleDropDown"/>
   </div>
@@ -52,9 +52,7 @@ export default {
     }
 
     onMounted(() => {
-      document.addEventListener('mouseup', (e) => {
-        clickOther(e);
-      });
+      document.addEventListener('mouseup', clickOther);
     });
 
     onUnmounted(() => {

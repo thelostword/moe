@@ -2,7 +2,8 @@
   <ul class="dropdown">
     <li @click="signUp" v-if="!isLogin">注册</li>
     <li @click="signIn" v-if="!isLogin">登录</li>
-    <li @click="logout" v-else>注销</li>
+    <li @click="settings">设置</li>
+    <li @click="logout" v-if="isLogin">注销</li>
   </ul>
 </template>
 
@@ -17,17 +18,25 @@ export default {
 
     const isLogin = computed(() => store.state.isLogin);
 
+    function postEmit() {
+      ctx.$emit('menu-click');
+    }
+
+    function settings() {
+      postEmit();
+    }
+
     // 登录
     function signIn() {
-      ctx.$emit('menu-click');
+      postEmit();
     }
     // 注册
     function signUp() {
-      ctx.$emit('menu-click');
+      postEmit();
     }
     // 退出登录
     function logout() {
-      ctx.$emit('menu-click');
+      postEmit();
       window.localStorage.clear();
     }
     return {
@@ -35,6 +44,7 @@ export default {
       logout,
       signIn,
       signUp,
+      settings,
     };
   },
 };

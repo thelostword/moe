@@ -16,18 +16,18 @@ div,ul,li,header,footer,section  {
   box-sizing: border-box;
 }
 
-// // 滚动条样式
-// ::-webkit-scrollbar {
-// width:6px;
-// height: 6px;
-// background: transparent;
-// }
+// 滚动条样式
+::-webkit-scrollbar {
+width:6px;
+height: 6px;
+background: transparent;
+}
 
-// ::-webkit-scrollbar-track {
-//   background: transparent;
-// }
+::-webkit-scrollbar-track {
+  background: transparent;
+}
 
-// ::-webkit-scrollbar-thumb {
-//   border-radius:6px;
-//   background-color: var(--color-theme);
-// }
+::-webkit-scrollbar-thumb {
+  border-radius:6px;
+  background-color: var(--color-black-o2);
+}

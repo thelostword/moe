@@ -32,7 +32,7 @@ header {
   align-items: center;
   padding: 0 20px;
   box-shadow: 0 0 8px var(--color-black-o1);
-  background-color: var(--color-white);
+  background-color: rgba($color: #ffffff, $alpha: .95);
   z-index: var(--header-z-index);
 }
 </style>
