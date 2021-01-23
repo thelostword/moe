@@ -1,13 +1,13 @@
 <template>
   <Header/>
   <BackgroundImg/>
-  <router-view class="views"></router-view>
+  <router-view class="views"/>
   <Footer/>
 </template>
 
 <script>
-import Header from '@/components/header/Index.vue';
-import Footer from '@/components/footer/Index.vue';
+import Header from '@/components/Header/Index.vue';
+import Footer from '@/components/Footer/Index.vue';
 import BackgroundImg from '@/components/BackgroundImg.vue';
 
 export default {

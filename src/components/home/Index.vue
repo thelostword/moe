@@ -1,36 +1,28 @@
 <template>
   <div>
-
     <NavigationMain/>
     <NavigationSecond/>
-    <button @click="clickMe">点我</button>
+    <Nav/>
+    <router-view class="home-views"/>
   </div>
 </template>
 
 <script>
-import { getCurrentInstance } from 'vue';
 import NavigationMain from './Navigation/Main.vue';
 import NavigationSecond from './Navigation/Second.vue';
+import Nav from './Nav.vue';
 
 export default {
   components: {
     NavigationMain,
     NavigationSecond,
-  },
-  setup() {
-    const { ctx } = getCurrentInstance();
-    function clickMe() {
-      ctx.$notify.wraning(null, '修改成功');
-    }
-    return {
-      clickMe,
-    };
+    Nav,
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.content {
-  margin-top: 50px;
+.home-views {
+  padding: 20px;
 }
 </style>

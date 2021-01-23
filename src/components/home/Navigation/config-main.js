@@ -21,7 +21,7 @@ const mainList = [
   },
   {
     img: bangumi,
-    name: 'bangumi',
+    name: 'Bangumi',
     link: 'https://bgm.tv',
   },
   {
