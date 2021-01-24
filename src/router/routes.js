@@ -1,4 +1,4 @@
-const Home = () => import('@/components/home/Index.vue');
+const Home = () => import('@/components/Home/Index.vue');
 const Login = () => import('@/components/Login.vue');
 const Signup = () => import('@/components/Signup.vue');
 

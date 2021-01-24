@@ -3,17 +3,20 @@
  */
 export const setStore = (name, content) => {
   if (!name) return;
-  if (typeof content !== 'string') {
-    content = JSON.stringify(content);
+  let value = content;
+  if (typeof value !== 'string') {
+    value = JSON.stringify(value);
   }
-  window.localStorage.setItem(name, content);
+  window.localStorage.setItem(name, value);
 };
 
 /**
  * 获取localStorage
  */
 export const getStore = (name) => {
-  if (!name) return;
+  if (!name) {
+    return null;
+  }
   return JSON.parse(window.localStorage.getItem(name));
 };
 
@@ -30,24 +33,19 @@ export const removeStore = (name) => {
  */
 export const setSession = (name, content) => {
   if (!name) return;
-  if (typeof content !== 'string') {
-    content = JSON.stringify(content);
+  let value = content;
+  if (typeof value !== 'string') {
+    value = JSON.stringify(value);
   }
-  window.sessionStorage.setItem(name, content);
+  window.sessionStorage.setItem(name, value);
 };
 
 /**
  * 获取sessionStorage
  */
 export const getSession = (name) => {
-  if (!name) return;
+  if (!name) {
+    return null;
+  }
   return JSON.parse(window.sessionStorage.getItem(name));
-};
-
-/**
- * 删除sessionStorage
- */
-export const removeSession = (name) => {
-  if (!name) return;
-  window.sessionStorage.removeItem(name);
 };

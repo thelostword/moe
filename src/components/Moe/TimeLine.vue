@@ -14,13 +14,26 @@
         target="_blank" rel="noopener noreferrer"
       >bilibili</a>
     </div>
-    <TimeLineItem/>
+
+    <template v-if="timelineData && timelineData.length">
+      <TimeLineFlag v-if="flagIndex === null"/>
+      <template v-for="(item, index) in timelineData" :key="index">
+        <TimeLineItem :item="item"/>
+        <TimeLineFlag v-if="index === flagIndex"/>
+      </template>
+    </template>
+    <div v-else class="timeline-empty"></div>
   </div>
 </template>
 
 <script>
-import { reactive, toRefs } from 'vue';
+import {
+  getCurrentInstance,
+  reactive, toRefs, watch,
+} from 'vue';
+import { setSession, getSession } from '@/utils/storage';
 import TimeLineItem from './TimeLineItem.vue';
+import TimeLineFlag from './TimeLineFlag.vue';
 
 const enumType = [
   {
@@ -36,16 +49,66 @@ const enumType = [
 export default {
   components: {
     TimeLineItem,
+    TimeLineFlag,
   },
   setup() {
+    const { ctx } = getCurrentInstance();
+
     const state = reactive({
       currentType: enumType[0].type,
-      timelineData: [],
+      timelineData: getSession('timeline_global'),
+      flagIndex: null,
     });
 
+    // 切换类型
     function checkType(type) {
       state.currentType = type;
     }
+
+    // 计算当前时间标记出现位置
+    function getFlagIndex() {
+      const publishedArr = state.timelineData.filter((item) => {
+        const timeNumber = item.pub_time.replace(':', '');
+        const date = new Date();
+        const curTimeNumber = `${date.getHours()}${date.getMinutes()}`;
+        return timeNumber <= curTimeNumber;
+      });
+      if (publishedArr.length) {
+        state.flagIndex = publishedArr.length - 1;
+      }
+    }
+
+    // 获取哔哩哔哩时间表
+    async function getTimeLine() {
+      const res = await ctx.$axios.get(`/bili/timeline_${state.currentType}`);
+      if (res.code !== 0) {
+        ctx.$notify.error(null, res.message);
+        return;
+      }
+      state.timelineData = res.result[6].seasons;
+      setSession(`timeline_${state.currentType}`, res.result[6].seasons);
+      getFlagIndex();
+    }
+    // 判断session 是否有数据，有则不发请求
+    if (state.timelineData) {
+      getFlagIndex();
+    } else {
+      getTimeLine();
+    }
+
+    // 监听类型切换（国创/番剧）
+    watch(
+      () => state.currentType,
+      (type) => {
+        const timelineData = getSession(`timeline_${type}`);
+        if (timelineData) {
+          state.timelineData = timelineData;
+          getFlagIndex();
+        } else {
+          getTimeLine();
+        }
+      },
+    );
 
     return {
       ...toRefs(state),
@@ -95,6 +158,14 @@ export default {
         text-shadow: 2px -4px 10px var(--color-bili-pink);
       }
     }
+  }
+
+  &-empty {
+    width: 244px;
+    height: 449px;
+    margin-top: 20px;
+    background-image: url('../../assets/image/empty-timeline.png');
+    background-repeat: no-repeat;
   }
 }
 </style>
