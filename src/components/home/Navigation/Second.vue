@@ -3,7 +3,7 @@
     <ul>
       <li v-for="(item,index) in siteData.navDiy" :key="index">
         <img :src="`//www.google.cn/s2/favicons?domain=${item.link}`">
-        <a :href="`${item.link}`" target="_blank" rel="noopener noreferrer">
+        <a :href="item.link" target="_blank" rel="noopener noreferrer">
           {{ item.name }}
         </a>
       </li>

@@ -70,7 +70,15 @@ export default {
       const publishedArr = state.timelineData.filter((item) => {
         const timeNumber = +item.pub_time.replace(':', '');
         const date = new Date();
-        const curTimeNumber = +`${date.getHours()}${date.getMinutes()}`;
+        let hour = date.getHours();
+        let minute = date.getMinutes();
+        if (hour < 10) {
+          hour = `0${hour}`;
+        }
+        if (minute < 10) {
+          minute = `0${minute}`;
+        }
+        const curTimeNumber = +`${hour}${minute}`;
         return timeNumber <= curTimeNumber;
       });
       if (publishedArr.length) {
@@ -124,7 +132,7 @@ export default {
 <style lang="scss" scoped>
 .timeline {
   width: 300px;
-  margin-right: 20px;
+  margin-right: 40px;
   &-tab {
     display: flex;
     align-items: center;

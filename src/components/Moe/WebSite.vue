@@ -1,10 +1,24 @@
 <template>
-  <div class="website">2222222222222222222</div>
+  <div class="website">
+    <template v-for="(item, index) in diyWebSiteData.webSite" :key="index">
+      <WebSiteList :item="item"/>
+    </template>
+  </div>
 </template>
 
 <script>
-export default {
+import diyWebSiteData from './config-website';
+import WebSiteList from './WebSiteList.vue';
 
+export default {
+  components: {
+    WebSiteList,
+  },
+  setup() {
+    return {
+      diyWebSiteData,
+    };
+  },
 };
 </script>
 
