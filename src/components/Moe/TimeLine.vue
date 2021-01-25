@@ -68,13 +68,15 @@ export default {
     // 计算当前时间标记出现位置
     function getFlagIndex() {
       const publishedArr = state.timelineData.filter((item) => {
-        const timeNumber = item.pub_time.replace(':', '');
+        const timeNumber = +item.pub_time.replace(':', '');
         const date = new Date();
-        const curTimeNumber = `${date.getHours()}${date.getMinutes()}`;
+        const curTimeNumber = +`${date.getHours()}${date.getMinutes()}`;
         return timeNumber <= curTimeNumber;
       });
       if (publishedArr.length) {
         state.flagIndex = publishedArr.length - 1;
+      } else {
+        state.flagIndex = null;
       }
     }
 

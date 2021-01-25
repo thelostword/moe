@@ -28,6 +28,7 @@ export default {
       '今晚早点睡！',
       '超级高校的观众',
       '试问，你可是我的Master？',
+      '大脑…大脑在颤抖！',
     ];
 
     function getCurrentTime() {
