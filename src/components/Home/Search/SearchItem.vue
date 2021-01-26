@@ -18,62 +18,54 @@
     </div>
 
     <div class="item-wrap">
-      <form
-        v-for="(item,index) in itemData"
-        :key="index"
-        v-show="curType===item.type"
-        :action="item.action"
-        autocomplete="off"
-        target="_blank">
-        <div class="item-search">
-          <input
-            :name="item.input_name"
-            type="text" v-model="searchVal"
-            @blur="handleBlur"
-            @focus="handleFocus"
-          />
-          <i class="iconfont icon-guanbi" v-show="searchVal" @click="clearSearchVal">x</i>
-        </div>
-        <button type="submit">{{ item.type_name }}</button>
-      </form>
-
-      <!-- 联想词 -->
-      <ul class="item-res" v-if="resBoxStatus">
-        <li>
-          <a href="http://" target="_blank" rel="noopener noreferrer">
-            1111111111111111111111111111111111111111111111
-          </a>
-        </li>
-        <li>
-          <a href="http://" target="_blank" rel="noopener noreferrer">
-            1111111111111111111111111111111111111111111111
-          </a>
-        </li>
-        <li>
-          <a href="http://" target="_blank" rel="noopener noreferrer">
-            1111111111111111111111111111111111111111111111
-          </a>
-        </li>
-        <!-- <li v-for="resItem in searchResData" :key="resItem">
-          <a
-            :href="`${item.action}?${item.input_name}=${resItem}`"
-            target="_blank"
-          >{{ resItem }}</a>
-        </li> -->
-      </ul>
+      <template v-for="(item,index) in itemData" :key="index">
+        <form
+          v-if="curType===item.type"
+          :action="item.action"
+          autocomplete="off"
+          target="_blank">
+          <div class="item-search">
+            <input
+              :name="item.input_name"
+              type="text" v-model="searchVal"
+              @blur="handleBlur"
+              @focus="handleFocus"
+            />
+            <i class="iconfont icon-guanbi" v-show="searchVal" @click="clearSearchVal">x</i>
+          </div>
+          <button type="submit">{{ item.type_name }}</button>
+        </form>
+        <!-- 联想词 -->
+        <ul class="item-res" v-if="resBoxStatus && curType===item.type">
+          <li v-for="resItem in searchResData" :key="resItem">
+            <a
+              :href="`${item.action}?${item.input_name}=${resItem}`"
+              target="_blank"
+              rel="noopener noreferrer"
+            >{{ resItem }}</a>
+          </li>
+        </ul>
+      </template>
     </div>
 
   </div>
 </template>
 
 <script>
-import { reactive, watch, toRefs } from 'vue';
+import {
+  reactive,
+  watch,
+  toRefs,
+  getCurrentInstance,
+} from 'vue';
 
 export default {
   props: {
     itemData: Array,
   },
   setup(props) {
+    const { ctx } = getCurrentInstance();
+
     const state = reactive({
       searchVal: null,
       searchResData: [],
@@ -81,19 +73,26 @@ export default {
       curType: props.itemData[0].type,
       dropDownStatus: false,
       resBoxStatus: false,
+      isLoading: false,
     });
 
     // 获取搜索联想词
-    // const getSearchResData = () => {
-    //   searchRes(state.searchVal).then(data => {
-    //     // 匹配获取到的数据
-    //     const regExp = /\[[^*]+\]/g;
-    //     const matches = data.match(regExp);
-    //     if (matches) {
-    //       state.searchResData = JSON.parse(matches);
-    //     }
-    //   })
-    // };
+    async function getSearch() {
+      if (!state.searchVal || state.isLoading) {
+        return;
+      }
+      state.isLoading = true;
+      const res = await ctx.$axios.get('/search/su', {
+        wd: state.searchVal,
+      });
+      state.isLoading = false;
+      if (!res) {
+        return;
+      }
+      let handleRes = res.match(/\[[^*]+\]/g)[0];
+      handleRes = JSON.parse(handleRes);
+      state.searchResData = handleRes;
+    }
 
     function handleFocus() {
       if (state.searchVal) {
@@ -101,7 +100,9 @@ export default {
       }
     }
     function handleBlur() {
-      state.resBoxStatus = false;
+      setTimeout(() => {
+        state.resBoxStatus = false;
+      }, 150);
     }
 
     watch(
@@ -109,16 +110,14 @@ export default {
       (val) => {
         if (val) {
           state.resBoxStatus = true;
-          // getSearchResData();
+          getSearch();
         }
-      }, {
-        lazy: true,
       },
     );
 
     // 清除输入框中的值
     function clearSearchVal() {
-      state.searchVal = '';
+      state.searchVal = null;
     }
 
     // 点击选择当前搜索方式
@@ -208,10 +207,11 @@ export default {
 
   &-res {
     position: absolute;
-    top: 34px;
+    top: 33px;
     left: 0;
     width: 300px;
     padding: 5px 0;
+    border-radius: 3px;
     background-color: var(--color-white);
     >li {
       padding: 0 10px;

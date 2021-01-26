@@ -11,7 +11,8 @@
       </ul>
       <a
         href="//www.bilibili.com/anime/timeline"
-        target="_blank" rel="noopener noreferrer"
+        target="_blank"
+        rel="noopener noreferrer"
       >bilibili</a>
     </div>
 
