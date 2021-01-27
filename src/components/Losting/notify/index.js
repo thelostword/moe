@@ -24,26 +24,26 @@ function handleData(type, title, content) {
   app.mount('#_notify');
 }
 
-/* eslint-disable */
 class NotifyClass {
   // 普通提示
-  info(title, content) {
+  static info(title, content) {
     handleData('info', title || 'Tip', content);
   }
+
   // 警告提示
-  wraning(title, content) {
+  static wraning(title, content) {
     handleData('wraning', title || 'Wraning', content);
   }
+
   // 成功提示
-  success(title, content) {
+  static success(title, content) {
     handleData('success', title || 'Success', content);
   }
+
   // 错误提示
-  error(title, content) {
+  static error(title, content) {
     handleData('error', title || 'Error', content);
   }
 }
 
-const Notify = new NotifyClass();
-
-export default Notify;
+export default NotifyClass;

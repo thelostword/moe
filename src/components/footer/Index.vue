@@ -27,7 +27,8 @@ export default {
 
     async function getHitokoto() {
       // v1.hitokoto.cn
-      const res = await ctx.$axios.get('https://international.v1.hitokoto.cn', {
+      // international.v1.hitokoto.cn
+      const res = await ctx.$axios.get('https://v1.hitokoto.cn', {
         max_length: 48,
       });
       if (!res) {

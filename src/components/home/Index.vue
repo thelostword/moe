@@ -6,7 +6,11 @@
     <NavigationMain/>
     <NavigationSecond/>
     <Nav/>
-    <router-view class="home-views"/>
+    <router-view v-slot="{ Component }">
+      <keep-alive>
+        <component :is="Component" />
+      </keep-alive>
+    </router-view>
   </div>
 </template>
 
