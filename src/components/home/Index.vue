@@ -7,7 +7,7 @@
     <NavigationSecond/>
     <Nav/>
     <router-view v-slot="{ Component }">
-      <keep-alive>
+      <keep-alive exclude="Picture">
         <component :is="Component" />
       </keep-alive>
     </router-view>

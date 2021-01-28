@@ -1,24 +1,33 @@
 <template>
   <div class="picture">
-    <PictureUtilsBar/>
-    <div class="picture-wrap" v-show="picData.length">
+    <PictureUtilsBar
+      :width="width"
+      :word="word"
+      @change="changeType"
+    />
+    <div class="picture-wrap" v-if="picData.length">
       <template v-for="(item, index) in picData" :key="index">
         <PictureItem :item="item"/>
       </template>
     </div>
+    <div class="picture-empty" v-else>未找到该类型图片</div>
   </div>
 </template>
 
 <script>
 import {
   getCurrentInstance,
+  onMounted,
+  onUnmounted,
   reactive,
   toRefs,
+  watch,
 } from 'vue';
 import PictureUtilsBar from './PictureUtilsBar.vue';
 import PictureItem from './PictureItem.vue';
 
 export default {
+  name: 'Picture',
   components: {
     PictureUtilsBar,
     PictureItem,
@@ -29,32 +38,90 @@ export default {
     const state = reactive({
       picData: [],
       picColHeight: [],
+      width: null,
+      height: null,
+      pn: 5,
+      word: '美女',
+      isLoading: false,
     });
 
-    async function getPicData() {
+    async function getPicData(sp) {
+      if (state.isLoading) {
+        return;
+      }
+      if (!sp) {
+        state.pn = 5;
+      }
+      state.isLoading = true;
       const res = await ctx.$axios.get('/img/acjson', {
         tn: 'resultjson_com',
-        logid: 9027656394908172384,
+        logid: 10505222645674034685,
         ipn: 'rj',
         ct: '201326592',
         fp: 'result',
-        queryWord: '动漫美女',
-        word: '动漫美女',
-        width: null,
-        height: null,
-        pn: 30,
+        queryWord: `动漫 ${state.word}`,
+        word: `动漫 ${state.word}`,
+        width: state.width,
+        height: state.height,
+        pn: state.pn,
         rn: 30,
       });
+      state.isLoading = false;
       if (!res.data) {
-        ctx.$notify.error(null, '图片获取失败！');
+        ctx.$notify.error(null, '百度图片获取失败！');
         return;
       }
-      state.picData = state.picData.concat(res.data);
+      if (sp) {
+        state.picData = state.picData.concat(res.data);
+      } else {
+        state.picData = res.data;
+      }
     }
-    getPicData();
+    getPicData(0);
+
+    function changeType(type, data) {
+      if (state.isLoading) {
+        return;
+      }
+      if (type === 'type') {
+        state.word = data.word;
+      } else {
+        state.width = data.width;
+        state.height = data.height;
+      }
+    }
+
+    watch(
+      () => [state.width, state.word],
+      () => {
+        getPicData(0);
+      },
+    );
+
+    function handleScroll() {
+      const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+      if (scrollTop + clientHeight === scrollHeight) {
+        if (state.isLoading) {
+          return;
+        }
+        state.pn += 30;
+        console.log(state.pn);
+        console.log(scrollTop, clientHeight, scrollHeight);
+        getPicData(1);
+      }
+    }
+
+    onMounted(() => {
+      window.addEventListener('scroll', handleScroll);
+    });
+
+    onUnmounted(() => {
+      window.removeEventListener('scroll', handleScroll);
+    });
 
     return {
       ...toRefs(state),
+      changeType,
     };
   },
 };
@@ -69,6 +136,10 @@ export default {
       content: '';
       flex-grow: 999;
     }
+  }
+  &-empty {
+    text-align: center;
+    line-height: 100px;
   }
 }
 </style>
