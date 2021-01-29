@@ -20,5 +20,6 @@ export default {
 <style lang="scss" scoped>
 .moe {
   display: flex;
+  padding: 10px 20px;
 }
 </style>

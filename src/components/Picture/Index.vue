@@ -17,8 +17,8 @@
 <script>
 import {
   getCurrentInstance,
-  onMounted,
-  onUnmounted,
+  onActivated,
+  onDeactivated,
   reactive,
   toRefs,
   watch,
@@ -105,17 +105,15 @@ export default {
           return;
         }
         state.pn += 30;
-        console.log(state.pn);
-        console.log(scrollTop, clientHeight, scrollHeight);
         getPicData(1);
       }
     }
 
-    onMounted(() => {
+    onActivated(() => {
       window.addEventListener('scroll', handleScroll);
     });
 
-    onUnmounted(() => {
+    onDeactivated(() => {
       window.removeEventListener('scroll', handleScroll);
     });
 
