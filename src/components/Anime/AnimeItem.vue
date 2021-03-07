@@ -91,7 +91,7 @@ export default {
   padding: 15px;
   margin-bottom: 20px;
   background-color: var(--color-white);
-  box-shadow: 3px 0 5px rgba($color: #000000, $alpha: .04);
+  box-shadow: 0 4px 8px var(--color-black-o1);
 
   &-cover {
     width: 125px;
