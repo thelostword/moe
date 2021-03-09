@@ -8,22 +8,32 @@
       class="header-search"
       type="search"
       placeholder="搜索..."
+      @input="handleInput"
       @keyup.enter="handleSearch">
   </div>
 </template>
 
 <script>
+import { getCurrentInstance } from 'vue';
+
 export default {
   props: {
     season: Number,
     total: Number,
   },
   setup() {
+    const { ctx } = getCurrentInstance();
+
     function handleSearch(e) {
-      console.log(e.target.value);
+      ctx.$emit('search', e.target.value);
     }
+    function handleInput(e) {
+      ctx.$emit('search-val', e.target.value);
+    }
+
     return {
       handleSearch,
+      handleInput,
     };
   },
 };

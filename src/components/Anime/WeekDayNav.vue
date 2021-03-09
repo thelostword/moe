@@ -47,6 +47,7 @@ export default {
 ul {
   width: 180px;
   padding: 10px 0;
+  margin-right: 20px;
   background-color: rgba($color: #000000, $alpha: .03);
   li {
     width: 100%;

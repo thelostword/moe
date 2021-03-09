@@ -1,7 +1,15 @@
 <template>
   <div class="anime">
-    <AnimeHeader :season="season" :total="seasonData.length"/>
-    <div class="anime-wrap">
+    <AnimeHeader
+      :season="season"
+      :total="seasonData.length"
+      @search="handleSearch"
+      @searchVal="getSearchVal"
+    />
+    <div class="anime-search" v-if="searchVal && searchData.length">
+      <AnimeList :list="searchData" :siteMeta="siteMeta"/>
+    </div>
+    <div class="anime-wrap" v-else>
       <WeekDayNav :week="curWeek" @change="changeWeek"/>
       <AnimeList :list="animeData" :siteMeta="siteMeta"/>
     </div>
@@ -27,6 +35,8 @@ export default {
       season: null,
       animeData: [],
       curWeek: new Date().getDay(),
+      searchData: [],
+      searchVal: null,
     });
 
     function getCurrentAnimeSeason() {
@@ -62,11 +72,31 @@ export default {
       }
     }
 
+    // 获取搜索关键字
+    function getSearchVal(val) {
+      if (!val) {
+        state.searchData = [];
+      }
+      state.searchVal = val;
+    }
+
+    // 搜索
+    function handleSearch(val) {
+      items.forEach((item) => {
+        const res = item?.titleTranslate['zh-Hans']?.filter((team) => team.includes(val));
+        if (res?.length) {
+          state.searchData.push(item);
+        }
+      });
+    }
+
     return {
       ...toRefs(state),
       seasonData,
       changeWeek,
       siteMeta,
+      getSearchVal,
+      handleSearch,
     };
   },
 };

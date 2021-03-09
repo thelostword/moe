@@ -13,7 +13,9 @@
         href="//www.bilibili.com/anime/timeline"
         target="_blank"
         rel="noopener noreferrer"
-      >bilibili</a>
+      >
+        <Icon icon="bilibili" color="var(--color-bili-blue)" size="24"/>
+      </a>
     </div>
 
     <template v-if="timelineData && timelineData.length">
@@ -33,6 +35,7 @@ import {
   reactive, toRefs, watch,
 } from 'vue';
 import { setSession, getSession } from '@/utils/storage';
+import Icon from '@/components/Losting/Icon.vue';
 import TimeLineItem from './TimeLineItem.vue';
 import TimeLineFlag from './TimeLineFlag.vue';
 
@@ -49,6 +52,7 @@ const enumType = [
 
 export default {
   components: {
+    Icon,
     TimeLineItem,
     TimeLineFlag,
   },
@@ -162,8 +166,6 @@ export default {
       }
     }
     >a {
-      font-size: var(--font-size-lg);
-      color: var(--color-bili-blue);
       transition: all .2s;
       &:hover {
         text-shadow: 2px -4px 10px var(--color-bili-pink);

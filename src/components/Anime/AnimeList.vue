@@ -23,6 +23,5 @@ export default {
 <style lang="scss" scoped>
 .list {
   flex: 1;
-  padding-left: 20px;
 }
 </style>

@@ -2,6 +2,7 @@
   <div class="timeline-flag">
     <Icon
       class="timeline-flag-icon"
+      icon="time"
       color="var(--color-bili-pink)"
       size="17"
     />
@@ -69,7 +70,7 @@ export default {
   font-size: 12px;
   &-icon {
     position: absolute;
-    left: -8px;
+    left: -9px;
     background-color: var(--color-white);
   }
   &-time {
